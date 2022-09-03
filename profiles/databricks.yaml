@@ -1,0 +1,17 @@
+# Sets an MLFlow experiment to track the pipeline execution
+# If unset, a default experiment based on runtime context will be created
+experiment:
+  name: "/Shared/multi-family-rent-experiment"
+
+# Sets the registry server URI. This property is useful if a registry server that's different from the tracking server
+# model_registry:
+#   uri: "databricks://PROFILE_NAME"
+
+# Defines variables in the pipeline.yaml file
+INGEST_DATA_LOCATION:
+INGEST_DATA_FORMAT: spark_sql
+INGEST_SCORING_DATA_LOCATION:
+INGEST_SCORING_DATA_FORMAT: spark_sql
+SPLIT_RATIOS: [0.75, 0.125, 0.125]
+SCORED_OUTPUT_DATA_LOCATION: "multi-family_rent_predictor_batch_scoring"
+SCORED_OUTPUT_DATA_FORMAT: table
