@@ -11,7 +11,7 @@ def sample_data():
     )
 
 def test_post_split_fn_returns_datasets_with_correct_spec(sample_data):
-    train = sample_datat[0:4]
+    train = sample_data[0:4]
     validation = sample_data[4:7]
     test = sample_data[7:10]
     (train_processed, validation_processed, test_processed) = processSplits(train, validation, test)
