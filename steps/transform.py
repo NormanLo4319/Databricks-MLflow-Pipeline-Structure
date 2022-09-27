@@ -13,7 +13,8 @@ def calculate_features(df: DataFrame):
     """
 
     """
-    df['rent'] = df['rent']
+    df['RentPerSqFt'] = df['Rent'] / df['MaxSqFt']
+    df = df[['RentPerSqFt', 'NumBeds', 'NumBaths', 'MaxSqFt', 'BuildingRatingID']]
 
     return df
 
@@ -21,11 +22,23 @@ def transformer_fn():
     """
 
     """
-    steps = [
-        (
-            "minmax_scaler",
-            MinMaxScaler(),
-            ["rent"]
-        )
-    ]
-    return Pipeline(steps)
+    return Pipeline(
+        steps = [
+            (
+                "calculate_features",
+                FunctionTransformer(calculate_features, feature_names_out='one-to-one'),
+            ),
+            (
+                "encoder",
+                ColumnTransformer(
+                    Transformers=[
+                    (
+                        "std_scaler",
+                        StandardScaler(),
+                        ["Rent"],
+                    ),
+                    ]
+                ),
+            ),
+        ]
+    )
